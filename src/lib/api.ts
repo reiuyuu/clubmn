@@ -135,13 +135,12 @@ export const newActivity = (
   clubId: number,
   { date: { from, to }, ...rest }: NewActivityFormValues
 ) => {
-  return fetchData(`/activities`, {
+  return fetchData(`/activities/${clubId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      clubId,
       startTime: format(from, 'yyyy-MM-dd HH:mm:ss'),
       endTime: format(to, 'yyyy-MM-dd HH:mm:ss'),
       ...rest,
