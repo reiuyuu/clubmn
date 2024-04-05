@@ -162,13 +162,13 @@ export default function ActivityPresCard({ activity }: ActivityPresCardProps) {
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="flex w-[85%] items-end justify-between space-x-3 pb-2"
+                className="flex w-[90%] items-end justify-between space-x-3 pb-2"
               >
                 <FormField
                   control={form.control}
                   name="info"
                   render={({ field }) => (
-                    <FormItem className="flex-1 space-y-1">
+                    <FormItem className="max-w-[calc(95%-72px)] flex-1 space-y-1">
                       <FormLabel>summary</FormLabel>
                       <FormControl>
                         <Textarea
@@ -207,8 +207,8 @@ export default function ActivityPresCard({ activity }: ActivityPresCardProps) {
               </form>
             </Form>
           ) : (
-            <div className="flex w-[85%] flex-1 items-start justify-between space-x-3 pb-2">
-              <div className="space-y-1.5">
+            <div className="flex w-[90%] flex-1 items-start justify-between space-x-3 pb-2">
+              <div className="max-w-[calc(95%-72px)] space-y-1.5">
                 <div className="pt-1.5 text-sm font-medium leading-none">
                   summary
                 </div>
