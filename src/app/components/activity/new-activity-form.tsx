@@ -69,7 +69,7 @@ const newActivityFormSchema = z.object({
     .max(50, {
       message: 'Location must not be longer than 50 characters.',
     }),
-  amount: z.string(),
+  amount: z.coerce.number(),
 })
 
 export type NewActivityFormValues = z.infer<typeof newActivityFormSchema>

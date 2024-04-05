@@ -133,7 +133,7 @@ export const payActivity = (activityId: number): Promise<Response<string>> =>
 
 export const newActivity = (
   clubId: number,
-  { date: { from, to }, amount, ...rest }: NewActivityFormValues
+  { date: { from, to }, ...rest }: NewActivityFormValues
 ) => {
   return fetchData(`/activities`, {
     method: 'POST',
@@ -145,7 +145,6 @@ export const newActivity = (
       startTime: format(from, 'yyyy-MM-dd HH:mm:ss'),
       endTime: format(to, 'yyyy-MM-dd HH:mm:ss'),
       ...rest,
-      amount: Number(amount),
     }),
   })
 }
