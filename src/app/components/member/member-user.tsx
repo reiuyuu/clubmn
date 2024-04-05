@@ -3,11 +3,11 @@
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
-import { Skeleton } from '@/components/ui/skeleton'
-import { useClub } from '@/hooks/use-club'
-import { getMembers } from '@/lib/api'
 import { PositionEnum } from '@/types/club'
 import { Member } from '@/types/member'
+import { getMembers } from '@/lib/api'
+import { useClub } from '@/hooks/use-club'
+import { Skeleton } from '@/components/ui/skeleton'
 
 import { columns } from './columns'
 import { MemberTable } from './member-tabel'
@@ -56,7 +56,6 @@ export default function MemberUser() {
             <MemberTable
               data={members}
               columns={columns}
-              isPresedent
               setMembers={setMembers}
             />
           ) : (
