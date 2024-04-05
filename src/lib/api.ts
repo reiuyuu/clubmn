@@ -72,7 +72,7 @@ export const editClub = (
   clubId: number,
   values: ClubFormValues
 ): Promise<Response<string>> =>
-  fetchData(`/edit/${clubId}`, {
+  fetchData(`/clubs/${clubId}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -181,9 +181,7 @@ export const editActivitySummary = (
 
 // admin
 export const getAllNewClubs = (): Promise<Response<ClubApplication[]>> =>
-  fetchData('/admin/allNewClub', {
-    method: 'POST',
-  })
+  fetchData('/admin/allNewClub')
 
 export const agreeClub = (
   clubApplicationId: number

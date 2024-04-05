@@ -25,9 +25,7 @@ export default function SettingsUser() {
             )
           )
           setActiveClub((prev) =>
-            prev && prev.clubId === clubId
-              ? { ...prev, position: 'applyQuit' }
-              : prev
+            prev?.clubId === clubId ? { ...prev, position: 'applyQuit' } : prev
           )
         } else {
           toast.warning('Quit club failed.')

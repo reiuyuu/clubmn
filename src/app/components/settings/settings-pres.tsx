@@ -1,12 +1,14 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ReloadIcon } from '@radix-ui/react-icons'
-import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
+import { editClub } from '@/lib/api'
+import { useClub } from '@/hooks/use-club'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -18,8 +20,6 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { useClub } from '@/hooks/use-club'
-import { editClub } from '@/lib/api'
 
 const clubFormSchema = z.object({
   clubName: z
@@ -54,7 +54,7 @@ const clubFormSchema = z.object({
 export type ClubFormValues = z.infer<typeof clubFormSchema>
 
 export default function SettingsPres() {
-  const { myClubs, setMyClubs, activeClub, setActiveClub } = useClub()
+  const { setMyClubs, activeClub, setActiveClub } = useClub()
   const club = activeClub!
 
   const [processing, setProcessing] = useState<boolean>(false)
@@ -77,6 +77,15 @@ export default function SettingsPres() {
     editClub(club.clubId, values)
       .then((res) => {
         if (res.code === 1) {
+          setMyClubs((prev) =>
+            prev.map((c) =>
+              c.clubId === club.clubId ? { ...c, ...values } : c
+            )
+          )
+          setActiveClub((prev) =>
+            prev?.clubId === club.clubId ? { ...prev, ...values } : prev
+          )
+          toast.success('Upate club successfully.')
         } else {
           toast.warning('Update club failed.')
         }
