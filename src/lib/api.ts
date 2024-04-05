@@ -196,3 +196,9 @@ export const rejectClub = (
   fetchData(`/admin/reject/${clubApplicationId}`, {
     method: 'POST',
   })
+
+export const backup = (): Promise<Response<string>> =>
+  fetchData('/admin/backup')
+
+export const restore = (): Promise<Response<string>> =>
+  fetchData('/admin/restore')

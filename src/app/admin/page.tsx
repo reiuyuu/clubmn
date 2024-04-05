@@ -5,12 +5,13 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
 import { ClubApplication } from '@/types/club'
-import { adminLogout, getAllNewClubs } from '@/lib/api'
+import { adminLogout, backup, getAllNewClubs, restore } from '@/lib/api'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -30,6 +31,36 @@ export default function AdminHome() {
   })
   const [newClubs, setNewClubs] = useState<ClubApplication[]>([])
   const [loading, setLoading] = useState<boolean>(false)
+
+  const handleBackup = () => {
+    backup()
+      .then((res) => {
+        if (res.code === 1) {
+          toast.success('Backup success!')
+        } else {
+          toast.error('Backup failed!')
+        }
+      })
+      .catch((err) => {
+        toast.error('something went wrong...')
+        console.log(err)
+      })
+  }
+
+  const handleRestore = () => {
+    restore()
+      .then((res) => {
+        if (res.code === 1) {
+          toast.success('Restore success!')
+        } else {
+          toast.error('Restore failed!')
+        }
+      })
+      .catch((err) => {
+        toast.error('something went wrong...')
+        console.log(err)
+      })
+  }
 
   const handleLogout = () => {
     adminLogout()
@@ -102,6 +133,15 @@ export default function AdminHome() {
                 </p>
               </div>
             </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuGroup>
+              <DropdownMenuItem onSelect={handleBackup}>
+                Backup
+              </DropdownMenuItem>
+              <DropdownMenuItem onSelect={handleRestore}>
+                Restore
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onSelect={handleLogout}>Log out</DropdownMenuItem>
           </DropdownMenuContent>
